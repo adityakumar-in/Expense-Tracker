@@ -27,7 +27,7 @@ const AddTransaction = () => {
     setId(getDateTime());
     setIsSubmit(!isSubmit);
     Item.current.value = '';
-    Amount.current.value = 0;
+    Amount.current.value = '';
     IsIncome.current.value = true;
   }
 
