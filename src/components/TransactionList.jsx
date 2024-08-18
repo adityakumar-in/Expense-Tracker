@@ -1,13 +1,9 @@
 import { useContext, useEffect, useState } from 'react'
 import '../App.css'
 import Transaction from './Transaction'
-import { ItemContext, AmountContext, IsIncomeContext, TransactionsContext, IdContext } from './ElementProvider'
+import { TransactionsContext } from './ElementProvider'
 
 const TransactionList = () => {
-  const {id, setId} = useContext(IdContext);
-  const {item, setItem} = useContext(ItemContext);
-  const {amount, setAmount} = useContext(AmountContext);
-  const {isIncome, setIsIncome} = useContext(IsIncomeContext);
   const {transactions, setTransactions} = useContext(TransactionsContext);
 
   return (

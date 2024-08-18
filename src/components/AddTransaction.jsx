@@ -1,13 +1,14 @@
-import { React, useContext, useEffect, useRef } from 'react'
+import { React, useContext, useEffect, useRef, useState } from 'react'
 import '../App.css'
-import { ItemContext, AmountContext, IsIncomeContext, IsSubmitContext, IdContext, TransactionsContext } from './ElementProvider'
+import { TransactionsContext } from './ElementProvider'
 
 const AddTransaction = () => {
-  const {item, setItem} = useContext(ItemContext);
-  const {amount, setAmount} = useContext(AmountContext);
-  const {isIncome, setIsIncome} = useContext(IsIncomeContext);
-  const {isSubmit, setIsSubmit} = useContext(IsSubmitContext);
-  const {id, setId} = useContext(IdContext);
+  const [item, setItem] = useState("");
+  const [amount, setAmount] = useState(0);
+  const [isIncome, setIsIncome] = useState(true);
+  const [isSubmit, setIsSubmit] = useState(false);
+  const [send, setSend] = useState(false);
+  const [id, setId] = useState(0);
   const {transactions, setTransactions} = useContext(TransactionsContext);
 
   const Item = useRef();
@@ -18,6 +19,22 @@ const AddTransaction = () => {
     return Date.now();
   }
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('http://localhost:3000/fetch', {
+          method: 'GET'
+        });
+        const data = await response.json();
+        await setTransactions([...data]);
+        console.log(data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData();
+  }, [send]);
 
   const sendDataToBackend = async () => {
     try {
@@ -30,18 +47,18 @@ const AddTransaction = () => {
       });
       
       const data = await response.json();
+      setSend(!send);
       // console.log(data); // Handle the response data here
     } catch (error) {
       console.error(error);
     }
   };
 
-
   useEffect(() => {
     const convertedIsIncome = typeof isIncome === 'string' ? (isIncome==='true'? true: false) : isIncome;
 
     if (item !== '' || amount !== 0) {
-      setTransactions([...transactions, {id, item, amount, isIncome: convertedIsIncome}]);
+      setIsIncome(convertedIsIncome);
       sendDataToBackend();
     }
     setItem('');
@@ -49,7 +66,6 @@ const AddTransaction = () => {
     setIsIncome(true);
   }, [isSubmit]);
 
-  
   const Submit = async (e) => {
     e.preventDefault()
 
