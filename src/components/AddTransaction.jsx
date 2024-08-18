@@ -1,6 +1,6 @@
 import { React, useContext, useEffect, useRef } from 'react'
 import '../App.css'
-import { ItemContext, AmountContext, IsIncomeContext, IsSubmitContext, IdContext } from './ElementProvider'
+import { ItemContext, AmountContext, IsIncomeContext, IsSubmitContext, IdContext, TransactionsContext } from './ElementProvider'
 
 const AddTransaction = () => {
   const {item, setItem} = useContext(ItemContext);
@@ -8,6 +8,7 @@ const AddTransaction = () => {
   const {isIncome, setIsIncome} = useContext(IsIncomeContext);
   const {isSubmit, setIsSubmit} = useContext(IsSubmitContext);
   const {id, setId} = useContext(IdContext);
+  const {transactions, setTransactions} = useContext(TransactionsContext);
 
   const Item = useRef();
   const Amount = useRef();
@@ -15,6 +16,24 @@ const AddTransaction = () => {
   const getDateTime = () => {
     return Date.now();
   }
+
+  const sendDataToBackend = async () => {
+    try {
+
+      const response = await fetch('http://localhost:3000/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({id, item, amount, isIncome}),
+      });
+      
+      const data = await response.json();
+      console.log(data); // Handle the response data here
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const Submit = (e) => {
     e.preventDefault()
@@ -24,6 +43,7 @@ const AddTransaction = () => {
       return;
     }
 
+    sendDataToBackend();
     setId(getDateTime());
     setIsSubmit(!isSubmit);
     Item.current.value = '';

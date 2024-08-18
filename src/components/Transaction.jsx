@@ -5,6 +5,29 @@ import { TransactionsContext } from './ElementProvider'
 const Transaction = ({ id, item, amount, isIncome }) => {
   const {transactions, setTransactions} = useContext(TransactionsContext);
   const [isHovered, setIsHovered] = useState(false);
+  // const [isClicked, setIsClicked] = useState(false);
+
+  const sendDataToBackend = async () => {
+    try {
+
+      const response = await fetch('http://localhost:3000/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({item, id, amount, isIncome}),
+      });
+      
+      const data = await response.json();
+      console.log(data); // Handle the response data here
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  // useEffect(() => {
+  //   sendDataToBackend();
+  // }, [isClicked]);
 
   const handleMouseOver = () => {
     setIsHovered(true);
@@ -14,8 +37,9 @@ const Transaction = ({ id, item, amount, isIncome }) => {
     setIsHovered(false);
   };
 
-  const removeCurrentId = (id) => {
-    setTransactions(transactions.filter((transaction) => transaction.id !== id));
+  const removeCurrentId = async (id) => {
+    sendDataToBackend();
+    await setTransactions(transactions.filter((transaction) => transaction.id !== id));
   };
 
   const formatDateTime = (timestamp) => {

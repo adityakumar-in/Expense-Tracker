@@ -13,7 +13,7 @@ export const ElementProvider = ({ children }) => {
   const [isIncome, setIsIncome] = useState(true);
   const [isSubmit, setIsSubmit] = useState(false);
   const [transactions, setTransactions] = useState([]);
-  const [id, setId] = useState(Date.now());
+  const [id, setId] = useState(0);
 
   return (
     <TransactionsContext.Provider value={{ transactions, setTransactions }}>
