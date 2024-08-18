@@ -9,7 +9,7 @@ const Transaction = ({ id, item, amount, isIncome }) => {
 
   const sendDataToBackend = async () => {
     try {
-      const response = await fetch('https://expense-tracker-qraa.onrender.com/', {
+      const response = await fetch('http://localhost:3000/', {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
@@ -27,7 +27,7 @@ const Transaction = ({ id, item, amount, isIncome }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('https://expense-tracker-qraa.onrender.com/fetch', {
+        const response = await fetch('http://localhost:3000/fetch', {
           method: 'GET'
         });
         const data = await response.json();

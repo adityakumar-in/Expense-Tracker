@@ -22,7 +22,7 @@ const AddTransaction = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('https://expense-tracker-qraa.onrender.com/fetch', {
+        const response = await fetch('http://localhost:3000/fetch', {
           method: 'GET'
         });
         const data = await response.json();
@@ -38,7 +38,7 @@ const AddTransaction = () => {
 
   const sendDataToBackend = async () => {
     try {
-      const response = await fetch('https://expense-tracker-qraa.onrender.com/', {
+      const response = await fetch('http://localhost:3000/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
