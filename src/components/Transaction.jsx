@@ -32,7 +32,7 @@ const Transaction = ({ id, item, amount, isIncome }) => {
         });
         const data = await response.json();
         await setTransactions([...data]);
-        console.log(data);
+        // console.log(data);
       } catch (error) {
         console.error(error);
       }

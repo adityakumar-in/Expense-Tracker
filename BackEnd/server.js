@@ -3,6 +3,8 @@ import bodyParser from 'body-parser';
 import cors from "cors" // Allow FrontEnd to Connect with BackEnd
 import Transaction from './models/TransactionSchema.js';
 import mongoose from 'mongoose';
+import dotenv from 'dotenv';
+dotenv.config();
 
 const app = express();
 const port = 3000;
@@ -12,7 +14,7 @@ app.use(bodyParser.json())
 
 const connectMongoDB = async () => {
   // Connect to MongoDB
-  await mongoose.connect('mongodb+srv://aditya:bindu2004@pocketguard.oplxx.mongodb.net/transactions', {
+  await mongoose.connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true
   })
