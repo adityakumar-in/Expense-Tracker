@@ -7,7 +7,6 @@
     --background-color: rgb(242, 241, 242);
     --foreground-color: rgb(251, 250, 248);
 }
-
 body {
     font-family: 'Lato', sans-serif;
     background-color: var(--background-color);
@@ -56,15 +55,6 @@ svg {
     font-weight: 900;
     padding: 15px 0;
     color: #0397dc;
-}
-.flexing[tag="apply"] {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-.flexi {
-    display: flex;
-    align-items: center;
 }
 .dropDown {
     padding-right: 10px;
@@ -154,8 +144,7 @@ input {
     box-sizing: border-box;
     background-color: var(--background-color);
 }
-input[type="text"],
-input[type="number"], select, input[type="submit"] {
+input[type="text"], input[type="number"], select, input[type="submit"] {
   border: 1px solid #dedede;
   outline: 0;
 }

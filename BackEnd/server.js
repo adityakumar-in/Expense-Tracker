@@ -16,7 +16,7 @@ app.post('/', (req, res) => {
   const transactionData = req.body;
   console.log('Received Data: ', transactionData);
   // Process the transaction data
-  res.json({ message: 'Transaction received successfully' });
+  res.json({ message: `Transaction received successfully ${transactionData}`});
 });
 
 app.listen(port, () => {

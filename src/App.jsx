@@ -12,6 +12,7 @@ function App() {
     <div className='mainPage'>
       <Header />
       
+      {/* We can access the gobal state in all the components without prop drilling */}
       <ElementProvider>
         <div className="bor">
           <Balance />

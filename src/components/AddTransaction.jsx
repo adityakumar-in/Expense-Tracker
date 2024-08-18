@@ -13,13 +13,14 @@ const AddTransaction = () => {
   const Item = useRef();
   const Amount = useRef();
   const IsIncome = useRef();
+
   const getDateTime = () => {
     return Date.now();
   }
 
+
   const sendDataToBackend = async () => {
     try {
-
       const response = await fetch('http://localhost:3000/', {
         method: 'POST',
         headers: {
@@ -29,13 +30,27 @@ const AddTransaction = () => {
       });
       
       const data = await response.json();
-      console.log(data); // Handle the response data here
+      // console.log(data); // Handle the response data here
     } catch (error) {
       console.error(error);
     }
   };
 
-  const Submit = (e) => {
+
+  useEffect(() => {
+    const convertedIsIncome = typeof isIncome === 'string' ? (isIncome==='true'? true: false) : isIncome;
+
+    if (item !== '' || amount !== 0) {
+      setTransactions([...transactions, {id, item, amount, isIncome: convertedIsIncome}]);
+      sendDataToBackend();
+    }
+    setItem('');
+    setAmount(0);
+    setIsIncome(true);
+  }, [isSubmit]);
+
+  
+  const Submit = async (e) => {
     e.preventDefault()
 
     if(item === '' || amount === 0) {
@@ -43,8 +58,8 @@ const AddTransaction = () => {
       return;
     }
 
-    sendDataToBackend();
-    setId(getDateTime());
+    await setId(getDateTime());
+    
     setIsSubmit(!isSubmit);
     Item.current.value = '';
     Amount.current.value = '';

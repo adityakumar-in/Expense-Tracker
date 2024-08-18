@@ -7,6 +7,7 @@ const IncomeExpense = () => {
   const [income, setIncome] = useState(0);
   const [expense, setExpense] = useState(0);
 
+  // This useEffect hook will run every time the transactions array changes and update the income and expense
   useEffect(() => {
     let totalIncome = 0;
     let totalExpense = 0;
